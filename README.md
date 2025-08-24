@@ -80,6 +80,10 @@ $ npm install
 
 โปรเจคนี้มีไฟล์ `docker-compose.yml` สำหรับรัน **PostgreSQL** และ **pgAdmin** เพื่อทดสอบฐานข้อมูล
 
+### (Optional) ใช้ Prisma Studio ในการดูข้อทูลใน Database ง่ายต่อการพัฒนา
+
+$ npx prisma studio
+
 คำสั่งหลัก:
 
 ````bash
@@ -94,8 +98,7 @@ docker compose down
 
 
 
-###  (Optional)  ใช้ Prisma Studio ในการดูข้อทูลใน Database ง่ายต่อการพัฒนา
-$ npx prisma studio
+
 
 ## Compile and run the project
 
