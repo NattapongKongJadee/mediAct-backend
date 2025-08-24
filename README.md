@@ -82,7 +82,9 @@ $ npm install
 
 ### (Optional) ใช้ Prisma Studio ในการดูข้อทูลใน Database ง่ายต่อการพัฒนา
 
+```bash
 $ npx prisma studio
+```
 
 คำสั่งหลัก:
 
