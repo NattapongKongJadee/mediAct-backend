@@ -6,7 +6,7 @@ import { UserRole } from '@prisma/client';
 class ListUsersQueryDto {
   @IsOptional()
   @IsEnum(UserRole)
-  role?: UserRole; // 'nurse' | 'head_nurse'
+  role?: UserRole; // 'nurse' | 'head_nurse' มี 2 role ในระบบ
 }
 
 @Controller('users')

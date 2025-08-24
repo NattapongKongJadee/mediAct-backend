@@ -15,7 +15,7 @@ export class ShiftsService {
     const startTime = new Date(dto.startTime);
     let endTime = new Date(dto.endTime);
 
-    // ตรวจรูปแบบ (Date invalid จะให้ NaN)
+    // ตรวจรูปแบบ (Date invalid )
     if ([date, startTime, endTime].some((d) => isNaN(d.getTime()))) {
       throw new BadRequestException('รูปแบบวัน/เวลาไม่ถูกต้อง');
     }
@@ -28,7 +28,7 @@ export class ShiftsService {
     try {
       const shift = await this.prisma.shift.create({
         data: {
-          date, // จะเก็บตามที่รับมา
+          date,
           startTime,
           endTime,
           createdBy: { connect: { id: createdById } },
@@ -55,6 +55,7 @@ export class ShiftsService {
         },
       };
     } catch (e: any) {
+      // ดัก unqiue date
       if (e?.code === 'P2002') {
         return { success: false, message: 'เวรนี้ถูกสร้างไปแล้ว' };
       }
@@ -62,8 +63,6 @@ export class ShiftsService {
     }
   }
 
-  // shifts.service.ts
-  // shifts.service.ts
   async list() {
     const shifts = await this.prisma.shift.findMany({
       orderBy: [{ date: 'asc' }, { startTime: 'asc' }],

@@ -7,14 +7,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
   app.enableCors({
-    origin: ['http://localhost:5173'], // your Vite dev origin
+    origin: ['http://localhost:5173'], /// ปิด CORS
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: false, // set true only if you use cookies
+    credentials: false,
     optionsSuccessStatus: 204,
   });
 
-  app.enableShutdownHooks(); // ใช้สัญญาณ OS (SIGINT/SIGTERM) แทน
+  app.enableShutdownHooks();
   // Swagger config
   const config = new DocumentBuilder()
     .setTitle('Nurse Shift API')

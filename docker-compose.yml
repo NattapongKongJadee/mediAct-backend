@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: nurse_shift
     ports:
-      - '5433:5432' # ถ้า brew ยังจับ 5432 อยู่ ให้เปลี่ยนเป็น "5433:5432"
+      - '5432:5432' # port  container
     volumes:
       - dbdata:/var/lib/postgresql/data
     healthcheck:
@@ -17,7 +17,7 @@ services:
       timeout: 3s
       retries: 10
 
-  pgadmin: # (ตัวเลือก) UI จัดการ DB
+  pgadmin:
     image: dpage/pgadmin4:8
     container_name: nurse-pgadmin
     restart: unless-stopped
@@ -25,7 +25,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: admin123
     ports:
-      - '5433:5432'
+      - '8080:80'
     depends_on:
       db:
         condition: service_healthy

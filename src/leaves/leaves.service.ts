@@ -22,7 +22,7 @@ export class LeavesService {
       throw new ForbiddenException('คุณไม่มีสิทธิ์ขอลาในเวรนี้');
     }
 
-    // กันการยื่นซ้ำ (pending อยู่ หรือเพิ่งอนุมัติแล้ว)
+    // ป้องกันการยื่นซ้ำ (pending อยู่ หรือเพิ่งอนุมัติแล้ว)
     const existed = await this.prisma.leaveRequest.findFirst({
       where: { shiftAssignmentId, status: { in: ['pending', 'approved'] } },
     });
@@ -66,7 +66,6 @@ export class LeavesService {
     };
   }
 
-  // leaves.service.ts
   async listAll() {
     const rows = await this.prisma.leaveRequest.findMany({
       orderBy: [{ createdAt: 'desc' }],
@@ -95,19 +94,17 @@ export class LeavesService {
       reason: r.reason ?? null,
       nurse: r.assignment.user, // { id, name, email }
 
-      // ✅ แบนฟิลด์ shift ให้อ่านง่าย และเป็น ISO ทั้งหมด
       shiftId: r.assignment.shift.id,
-      date: r.assignment.shift.date, // ISO
-      startTime: r.assignment.shift.startTime, // ISO
-      endTime: r.assignment.shift.endTime, // ISO
-      headNurse: r.assignment.shift.createdBy, // { id, name }
+      date: r.assignment.shift.date,
+      startTime: r.assignment.shift.startTime,
+      endTime: r.assignment.shift.endTime,
+      headNurse: r.assignment.shift.createdBy,
 
-      approvedBy: r.approvedBy ?? null, // { id, name } | null
-      createdAt: r.createdAt, // ISO
-      updatedAt: r.updatedAt, // ISO
+      approvedBy: r.approvedBy ?? null,
+      createdAt: r.createdAt,
+      updatedAt: r.updatedAt,
     }));
   }
-  // leaves.service.ts
   async decide(
     leaveId: number,
     approver: { userId: number; role: 'head_nurse' | 'nurse' },
@@ -127,7 +124,7 @@ export class LeavesService {
 
       if (status === 'approved') {
         await tx.shiftAssignment.update({
-          where: { id: leave.assignment.id }, // ✅ ถูกต้อง
+          where: { id: leave.assignment.id }, // ถูกต้อง
           data: { isActive: false, revokedAt: new Date() },
         });
       }

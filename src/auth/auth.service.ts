@@ -51,9 +51,9 @@ export class AuthService {
     const token = jwt.sign(
       { sub: user.id.toString(), email: user.email, role: user.role },
       process.env.JWT_SECRET || 'dev_secret',
-      { expiresIn: '7d' },
+      { expiresIn: '7d' }, //วันหมดอายุ Token
     );
-    /// Expires depend on  system requirement
+
     return { access_token: token };
   }
 }
