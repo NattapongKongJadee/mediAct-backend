@@ -43,7 +43,6 @@
    - ใบขอลาจากพยาบาล (ผูกกับ ShiftAssignment)
    - สถานะ: pending | approved | rejected
    - approvedById: ผู้อนุมัติ (หัวหน้าพยาบาล), optional (ตอน pending ยังว่าง)
-   - การลอจิกที่พบบ่อย:
    - เมื่อ approved → ไปอัปเดต ShiftAssignment.isActive = false เพื่อทำให้เวรนั้น “ว่าง” และสามารถ assign ใหม่ได้
 
 ## Project setup
